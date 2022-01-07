@@ -1,7 +1,13 @@
 package collections
 
+import com.sun.org.apache.xpath.internal.operations.Bool
+
 data class Receita(val nome: String, val calorias: Int, val ingredientes: List<Ingredientes> = listOf())
 data class Ingredientes(val nome: String, val quantidade: Int)
+
+fun searchIngredientes(list: List<Ingredientes>, name: String): Boolean{
+    return list.any { it.nome == name };
+}
 
 fun main() {
 
@@ -76,6 +82,7 @@ fun main() {
     data.filter { it.calorias > 500 }.map { Pair(it.nome, it.calorias) }. forEach { println("${it.first}: ${it.second}") }
 
     // Qual das receitas contem farinha como ingrediente?
+    data.filter { searchIngredientes(it.ingredientes, "Farinha")}.forEach { println(it.nome) }
 
     // Qual a receita mais calórica? E a menos calórica?
 
